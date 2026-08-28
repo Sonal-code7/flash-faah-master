@@ -1,6 +1,5 @@
 # Flashcard Genius (05)
 
-You are a developer and you have to make site that runs flashcards , when a user ( say user 1 ) inputs a text into given block , ai makes quick flashards from that particular topic or text user 1 provided. and it gives points for every correct answer. user can choose if they want 5 or 10 or 15 questions from given topic. there should also be a history tab to access all the flashcards from past  and for every wrong answer of flashcard , there should be that famous FAAAAAAH sound and ai should ask the user if they want to learn the topic also they lose a point for every wrong answer.
 
 This project was built with [Lovable](https://lovable.dev).
 
