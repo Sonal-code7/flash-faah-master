@@ -22,7 +22,7 @@ export const Route = createFileRoute("/history")({
       },
     ],
   }),
-  component: HistoryPage;
+  component: HistoryPage,
 });
 
 function HistoryPage() {
