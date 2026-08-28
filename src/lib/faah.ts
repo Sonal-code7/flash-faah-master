@@ -1,11 +1,26 @@
 /**
- * The famous "FAAAAAAH" fail horn, synthesized with the Web Audio API
- * (no external asset, works offline).
+ * The famous Gen-Z "FAAAAAAH" fail scream, a real voice audio asset
+ * (public/sfx/faah.mp3), with the Web Audio honk kept as a fallback.
  */
+let audioEl: HTMLAudioElement | null = null;
 let ctx: AudioContext | null = null;
 
+export function playFaah() {
+  if (typeof window === "undefined") return;
+
+  try {
+    if (!audioEl) audioEl = new Audio("/sfx/faah.mp3");
+    audioEl.currentTime = 0;
+    audioEl.volume = 1;
+    const p = audioEl.play();
+    if (p) p.catch(() => playFallbackHonk());
+    return;
+  } catch {
+    playFallbackHonk();
+  }
+}
+
 function getCtx(): AudioContext | null {
-  if (typeof window === "undefined") return null;
   const Ctor =
     window.AudioContext ??
     (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
@@ -14,7 +29,7 @@ function getCtx(): AudioContext | null {
   return ctx;
 }
 
-export function playFaah() {
+function playFallbackHonk() {
   const audio = getCtx();
   if (!audio) return;
   void audio.resume();
@@ -34,7 +49,6 @@ export function playFaah() {
   master.connect(filter);
   filter.connect(audio.destination);
 
-  // Two detuned saw tones sliding down = classic sad trombone honk.
   [110, 138.6].forEach((freq, i) => {
     const osc = audio.createOscillator();
     osc.type = "sawtooth";
